@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title></title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/css/tether.min.css">
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1>Ruban Project Planner</h1>
+      <article>
+      <h2>Draft: Weekly Efficiency</h2>
+      <section>
+      <h3>Manually</h3>
+      <div class="row">
+        <div class="col-md-2">
+          <p>Efficiency</p>
+        </div>
+        <div class="col-md-2">
+            <div class="bars">
+              <div class="bar-group">
+                <div class="bar bar-height-125"></div>
+                <div class="bar bar-height-100"></div>
+              </div>
+              <div class="bar-group">
+                <div class="bar bar-height-100"></div>
+                <div class="bar bar-height-100"></div>
+              </div>
+              <div class="bar-group">
+                <div class="bar bar-height-75"></div>
+                <div class="bar bar-height-75"></div>
+              </div>
+              <div class="bar-group">
+                <div class="bar bar-height-100"></div>
+                <div class="bar bar-height-100"></div>
+              </div>
+              <div class="bar-group">
+                <div class="bar bar-height-100"></div>
+                <div class="bar bar-height-90"></div>
+              </div>
+            </div>
+            <div class="labels"></div>
+            <div class="group-label">Week 1</div>
+        </div>
+        <div class="col-md-2">
+            <div class="bars"></div>
+            <div class="labels"></div>
+            <div class="group-label">Week 2</div>
+        </div>
+        <div class="col-md-2">
+            <div class="bars"></div>
+            <div class="labels"></div>
+            <div class="group-label">Week 3</div>
+        </div>
+        <div class="col-md-2">
+            <div class="bars"></div>
+            <div class="labels"></div>
+            <div class="group-label">Week 4</div>
+        </div>
+      </div>
+      </section>
+        
+      <section>
+          <h3>Using ChartJS</h3>
+          <div class="row">
+              <div class="col-md-2">
+                <p>Efficiency</p>
+              </div>
+              <div class="col-md-2">
+                <canvas id="bar-chart-week-1"></canvas>
+              </div>
+          </div>
+          </section>
+      </article>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script><!-- http://api.jquery.com/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.25.0/js/jquery.tablesorter.min.js"></script><!-- http://tablesorter.com/docs/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script><!-- http://www.chartjs.org/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.1.1/js/tether.min.js"></script><!-- https://github.com/HubSpot/tether -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script> <!-- http://v4-alpha.getbootstrap.com/getting-started/introduction/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.min.js"></script><!-- https://bootstrap-datepicker.readthedocs.org/en/latest/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/locales/bootstrap-datepicker.fr.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script><!-- http://momentjs.com/docs/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script><!-- https://lodash.com/docs -->
+      
+    <script type="text/javascript">
+        // Get the context of the canvas element we want to select
+        var ctxChartWeek1 = $("#bar-chart-week-1")[0].getContext("2d");
+        var dataChartWeek1 = {
+            labels: ["L", "MF", "M", "A", "Σ"],
+            datasets: [
+                {
+                    label: "% time on revenue projects",
+                    fillColor: "rgba(220,220,220,0.5)",
+                    strokeColor: "rgba(220,220,220,0.8)",
+                    highlightFill: "rgba(220,220,220,0.75)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [125, 100, 75, 100, 100]
+                },
+                {
+                    label: "% time on all projects",
+                    fillColor: "rgba(151,187,205,0.5)",
+                    strokeColor: "rgba(151,187,205,0.8)",
+                    highlightFill: "rgba(151,187,205,0.75)",
+                    highlightStroke: "rgba(151,187,205,1)",
+                    data: [100, 100, 75, 100, 93.75]
+                }
+            ]
+        };
+        var optionChartWeek1 = {
+            scaleShowGridLines : false,
+            barShowStroke : false
+        };
+        var barChartWeek1 = new Chart(ctxChartWeek1).Bar(dataChartWeek1, optionChartWeek1);
+    </script>
+  </body>
+</html>
